@@ -404,8 +404,8 @@ task dropDB<<{
 }
 task setBlankPassword<<{
     sql = Sql.newInstance( 'jdbc:mysql:thin://localhost:3306/', mysqlUser, mysqlPassword, 'org.drizzle.jdbc.DrizzleDriver' )
-    sql.execute('USE `mifosplatform-tenants2`')
-    sql.execute('UPDATE mifosplatform-tenants2.tenants SET schema_server = \'localhost\', schema_server_port = \'3306\', schema_username = \'mifos\', schema_password = \'mysql\' WHERE id=1;')
+    sql.execute('USE `mifosplatform-tenants`')
+    sql.execute('UPDATE mifosplatform-tenants.tenants SET schema_server = \'localhost\', schema_server_port = \'3306\', schema_username = \'mifos\', schema_password = \'mysql\' WHERE id=1;')
 }
 
 
@@ -423,7 +423,7 @@ buildscript {
 
 
 flyway {
-    url = "jdbc:mysql:thin://localhost:3306/mifosplatform-tenants22"
+    url = "jdbc:mysql:thin://localhost:3306/mifostenant-default"
 	driver = "org.drizzle.jdbc.DrizzleDriver"
     user = mysqlUser
     password = mysqlPassword
@@ -463,10 +463,10 @@ task showTenantDBInfo<<{
 
 
 task migrateTenantListDB<<{
-    description="Migrates a Tenant List DB. Optionally can pass dbName. Defaults to 'mifosplatform-tenants2' (Example: -PdbName=someDBname)"
+    description="Migrates a Tenant List DB. Optionally can pass dbName. Defaults to 'mifosplatform-tenants' (Example: -PdbName=someDBname)"
 
 	def filePath = "filesystem:$projectDir" + '/src/main/resources/sql/migrations/list_db'
- 	def tenantsDbName = 'mifosplatform-tenants22';
+ 	def tenantsDbName = 'mifosplatform-tenants';
     if (rootProject.hasProperty("dbName")) {
 		tenantsDbName = rootProject.getProperty("dbName")
 	}
@@ -479,10 +479,10 @@ task migrateTenantListDB<<{
 }
 
 task showTenantListDBInfo<<{
-    description="Shows the migration info for a List DB. Optionally can pass dbName. Defaults to 'mifosplatform-tenants2' (Example: -PdbName=someDBname)"
+    description="Shows the migration info for a List DB. Optionally can pass dbName. Defaults to 'mifosplatform-tenants' (Example: -PdbName=someDBname)"
     
 	def filePath = "filesystem:$projectDir" + '/src/main/resources/sql/migrations/list_db'
-    def tenantsDbName = 'mifosplatform-tenants2';
+    def tenantsDbName = 'mifosplatform-tenants';
     if (rootProject.hasProperty("dbName")) {
 		tenantsDbName = rootProject.getProperty("dbName")
 	}
@@ -497,7 +497,7 @@ task repairTenantDB<<{
     description="repair migrate"
     
 	def filePath = "filesystem:$projectDir" + '/src/main/resources/sql/migrations/list_db'
-    def tenantsDbName = 'mifosplatform-tenants2';
+    def tenantsDbName = 'mifosplatform-tenants';
     if (rootProject.hasProperty("dbName")) {
         tenantsDbName = rootProject.getProperty("dbName")
     }
