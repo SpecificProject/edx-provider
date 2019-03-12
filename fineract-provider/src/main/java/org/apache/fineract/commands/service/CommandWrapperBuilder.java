@@ -3132,4 +3132,49 @@ public class CommandWrapperBuilder {
         this.href = "/twofactor/configure";
         return this;
     }
+    
+    /**
+     * EDX Changes Starting Point
+     * @author Ram
+     * */
+    
+    public CommandWrapperBuilder createAcademicYear(){
+    	this.actionName = "CREATE";
+    	this.entityName = "ACADEMIC_YEAR";
+    	this.href = "/academics";
+    	return this;
+    }
+    
+    public CommandWrapperBuilder updateAcademicYear(final Long academicYearId){
+    	this.actionName = "UPDATE";
+    	this.entityName = "ACADEMIC_YEAR";
+    	 this.entityId = academicYearId;
+    	this.href = "/academics/" + academicYearId;
+    	return this;
+    }
+    
+    public CommandWrapperBuilder deleteAcademicYear(final Long academicYearId) {
+        this.actionName = "DELETE";
+        this.entityName = "ACADEMIC_YEAR";
+        this.entityId = academicYearId;
+        this.href = "/academics/" + academicYearId;
+        return this;
+    }
+    
+    public CommandWrapperBuilder activateAcademicYear(final Long academicYearId) {
+        this.actionName = "ACTIVATE";
+        this.entityName = "ACADEMIC_YEAR";
+        this.entityId = academicYearId;
+        this.href = "/holidays/" + academicYearId + "command=activate";
+        return this;
+    }
+    
+    
+    public CommandWrapperBuilder closeAcademicYear(final Long academicYearId) {
+        this.actionName = "CLOSE";
+        this.entityName = "ACADEMIC_YEAR";
+        this.entityId = academicYearId;
+        this.href = "/holidays/" + academicYearId + "command=close";
+        return this;
+    }
 }
