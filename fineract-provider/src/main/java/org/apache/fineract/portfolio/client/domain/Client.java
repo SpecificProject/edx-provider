@@ -51,6 +51,7 @@ import org.apache.fineract.infrastructure.core.exception.PlatformApiDataValidati
 import org.apache.fineract.infrastructure.core.service.DateUtils;
 import org.apache.fineract.infrastructure.documentmanagement.domain.Image;
 import org.apache.fineract.infrastructure.security.service.RandomPasswordGenerator;
+import org.apache.fineract.organisation.academic.domain.EDXAcademicYear;
 import org.apache.fineract.organisation.office.domain.Office;
 import org.apache.fineract.organisation.staff.domain.Staff;
 import org.apache.fineract.portfolio.client.api.ClientApiConstants;
@@ -232,6 +233,10 @@ public final class Client extends AbstractPersistableCustom<Long> {
     @JoinColumn(name = "reopened_by_userid", nullable = true)
     private AppUser reopenedBy;
 
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "academic_year_id", nullable = true)
+    private EDXAcademicYear academicYear;
+    
     public static Client createNew(final AppUser currentUser, final Office clientOffice, final Group clientParentGroup, final Staff staff,
             final Long savingsProductId, final CodeValue gender, final CodeValue clientType, final CodeValue clientClassification,
             final Integer legalForm, final JsonCommand command) {
@@ -1040,8 +1045,15 @@ public final class Client extends AbstractPersistableCustom<Long> {
         this.status = ClientStatus.PENDING.getValue();
 
     }
+    public EDXAcademicYear getAcademicYear() {
+		return academicYear;
+	}
 
-    public Integer getLegalForm() {
+	public void setAcademicYear(EDXAcademicYear academicYear) {
+		this.academicYear = academicYear;
+	}
+
+	public Integer getLegalForm() {
         return legalForm;
     }
 
@@ -1058,4 +1070,6 @@ public final class Client extends AbstractPersistableCustom<Long> {
     public String getMiddlename(){return this.middlename;}
 
     public String getLastname(){return this.lastname;}
+    
+    
 }

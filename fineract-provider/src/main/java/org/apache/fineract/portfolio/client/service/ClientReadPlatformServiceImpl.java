@@ -590,6 +590,7 @@ public class ClientReadPlatformServiceImpl implements ClientReadPlatformService 
             builder.append("c.default_savings_account as savingsAccountId ");
             builder.append("from m_client c ");
             builder.append("join m_office o on o.id = c.office_id ");
+            builder.append("inner join m_academic_year ay on ay.id = c.academic_year_id and ay.status_enum = 300 ");
             builder.append("left join m_client_non_person cnp on cnp.client_id = c.id ");
             builder.append("left join m_staff s on s.id = c.staff_id ");
             builder.append("left join m_savings_product sp on sp.id = c.default_savings_product ");

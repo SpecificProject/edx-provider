@@ -65,6 +65,7 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -79,6 +80,7 @@ import org.apache.fineract.infrastructure.core.data.ApiParameterError;
 import org.apache.fineract.infrastructure.core.data.DataValidatorBuilder;
 import org.apache.fineract.infrastructure.core.exception.PlatformApiDataValidationException;
 import org.apache.fineract.infrastructure.core.domain.AbstractPersistableCustom;
+import org.apache.fineract.organisation.academic.domain.EDXAcademicYear;
 import org.apache.fineract.organisation.monetary.domain.MonetaryCurrency;
 import org.apache.fineract.organisation.monetary.domain.Money;
 import org.apache.fineract.portfolio.charge.domain.Charge;
@@ -207,6 +209,10 @@ public class SavingsProduct extends AbstractPersistableCustom<Long> {
     @Column(name = "days_to_escheat")
 	private Long daysToEscheat;
 
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "academic_year_id", nullable = true)
+    private EDXAcademicYear academicYear;
+    
     public static SavingsProduct createNew(final String name, final String shortName, final String description,
             final MonetaryCurrency currency, final BigDecimal interestRate,
             final SavingsCompoundingInterestPeriodType interestCompoundingPeriodType,
@@ -749,6 +755,14 @@ public class SavingsProduct extends AbstractPersistableCustom<Long> {
 
 	public Long getDaysToEscheat() {
 		return this.daysToEscheat;
+	}
+
+	public EDXAcademicYear getAcademicYear() {
+		return academicYear;
+	}
+
+	public void setAcademicYear(EDXAcademicYear academicYear) {
+		this.academicYear = academicYear;
 	}
 
 }

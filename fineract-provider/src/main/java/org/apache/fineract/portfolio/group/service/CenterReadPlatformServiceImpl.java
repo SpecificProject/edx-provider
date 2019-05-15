@@ -186,7 +186,9 @@ public class CenterReadPlatformServiceImpl implements CenterReadPlatformService 
             + "acu.firstname as activatedByFirstname, "
             + "acu.lastname as activatedByLastname "
             + "from m_group g " //
-            + "join m_office o on o.id = g.office_id " + "left join m_staff s on s.id = g.staff_id "
+            + "join m_office o on o.id = g.office_id " 
+            + "inner join m_academic_year ay on ay.id = g.academic_year_id and ay.status_enum = 300 "
+            + "left join m_staff s on s.id = g.staff_id "
             + "left join m_group pg on pg.id = g.parent_id " + "left join m_appuser sbu on sbu.id = g.submittedon_userid "
             + "left join m_appuser acu on acu.id = g.activatedon_userid " + "left join m_appuser clu on clu.id = g.closedon_userid ";
 
