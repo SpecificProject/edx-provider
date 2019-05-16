@@ -62,6 +62,7 @@ public final class AllGroupTypesDataMapper implements RowMapper<GroupGeneralData
         sqlBuilder.append("g.level_id as groupLevel ");
         sqlBuilder.append("from m_group g ");
         sqlBuilder.append("join m_office o on o.id = g.office_id ");
+        sqlBuilder.append("inner join m_academic_year ay on ay.id = g.academic_year_id and ay.status_enum = 300 ");
         sqlBuilder.append("left join m_staff s on s.id = g.staff_id ");
         sqlBuilder.append("left join m_group pg on pg.id = g.parent_id ");
         sqlBuilder.append("left join m_appuser sbu on sbu.id = g.submittedon_userid ");

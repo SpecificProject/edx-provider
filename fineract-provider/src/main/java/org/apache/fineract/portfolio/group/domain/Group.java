@@ -51,6 +51,7 @@ import org.apache.fineract.infrastructure.core.exception.PlatformApiDataValidati
 import org.apache.fineract.infrastructure.core.service.DateUtils;
 import org.apache.fineract.infrastructure.core.domain.AbstractPersistableCustom;
 import org.apache.fineract.infrastructure.security.service.RandomPasswordGenerator;
+import org.apache.fineract.organisation.academic.domain.EDXAcademicYear;
 import org.apache.fineract.organisation.office.domain.Office;
 import org.apache.fineract.organisation.staff.domain.Staff;
 import org.apache.fineract.portfolio.client.domain.Client;
@@ -145,6 +146,10 @@ public final class Group extends AbstractPersistableCustom<Long> {
 
     @OneToMany(mappedBy="group",cascade = CascadeType.REMOVE)
     private Set<GroupRole> groupRole;
+    
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "academic_year_id", nullable = true)
+    private EDXAcademicYear academicYear;
 
 
     // JPA default constructor for entity
@@ -744,4 +749,14 @@ public final class Group extends AbstractPersistableCustom<Long> {
         this.accountNumber = accountIdentifier;
         this.accountNumberRequiresAutoGeneration = false;
     }
+
+	public EDXAcademicYear getAcademicYear() {
+		return academicYear;
+	}
+
+	public void setAcademicYear(EDXAcademicYear academicYear) {
+		this.academicYear = academicYear;
+	}
+    
+    
 }
